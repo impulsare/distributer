@@ -1,0 +1,4 @@
+distributer:
+    host: redis
+testqueue:
+    queue: my_test_queue

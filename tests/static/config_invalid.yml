@@ -1,0 +1,2 @@
+distributer:
+    queue: my_test_queue

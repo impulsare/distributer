@@ -1,0 +1,4 @@
+distributer:
+    host: abc
+testqueue:
+    queue: my_test_queue

@@ -1,0 +1,10 @@
+type: object
+properties:
+    distributer:
+        type: object
+        required: [host]
+        properties:
+            host:
+                type: string
+            port:
+                type: integer

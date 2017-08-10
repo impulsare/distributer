@@ -1,0 +1,8 @@
+distributer:
+    port: 6379
+extractor:
+    queue: ruler
+ruler:
+    queue: writer
+writer:
+    queue: extractor
