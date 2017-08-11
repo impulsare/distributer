@@ -1,6 +1,13 @@
 impulsare/distributer
 ===============================
 
+.. image:: https://travis-ci.org/impulsare/distributer.svg?branch=master
+    :target: https://travis-ci.org/impulsare/distributer
+
+.. image:: https://scrutinizer-ci.com/g/impulsare/distributer/badges/quality-score.png?b=master
+    :target: https://scrutinizer-ci.com/g/impulsare/distributer/
+
+
 Overview
 --------------------------
 A queue manager based on ``rq`` and made for **impulsare**. It helps to :
