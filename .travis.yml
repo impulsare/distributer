@@ -12,7 +12,7 @@ python:
 services:
   - redis-server
 env:
-    - REDIS=localhost
+    - REDIS=127.0.0.1
 
 install:
     - pip install .
