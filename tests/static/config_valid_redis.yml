@@ -1,5 +1,5 @@
 distributer:
-    host: 127.0.0.1
+    host: redis
 testqueue:
     queue: my_test_queue
 logger:

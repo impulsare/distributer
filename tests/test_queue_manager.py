@@ -35,20 +35,22 @@ class TestQueueManager(unittest.TestCase):
 
 
     def test_queue_valid(self):
-        config_file = base_dir + '/static/config_valid.yml'
-        specs_file = base_dir + '/../impulsare_distributer/static/specs.yml'
-        config = Reader().parse(config_file, specs_file).get('distributer')
-        host = config['host']
-        if os.getenv('REDIS') is not None:
-            host = os.getenv('REDIS')
-        con = redis.StrictRedis(host=host)
+        host = '127.0.0.1'
+        if os.environ['REDIS'] is not None:
+            host = os.environ['REDIS']
 
+        con = redis.StrictRedis(host=host)
         # Clean
         items = con.keys('rq:*')
         for item in items:
             con.delete(item)
         items = con.keys('rq:*')
         self.assertEqual(len(items), 0)
+
+        config_file = base_dir + '/static/config_valid.yml'
+        # our local dev env
+        if host == 'redis':
+            config_file = base_dir + '/static/config_valid_redis.yml'
 
         try:
             q = QueueManager(config_file, 'testqueue')
