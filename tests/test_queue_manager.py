@@ -36,7 +36,7 @@ class TestQueueManager(unittest.TestCase):
 
     def test_queue_valid(self):
         host = '127.0.0.1'
-        if os.environ['REDIS'] is not None:
+        if 'REDIS' in os.environ and os.environ['REDIS'] is not None:
             host = os.environ['REDIS']
 
         con = redis.StrictRedis(host=host)
@@ -48,9 +48,9 @@ class TestQueueManager(unittest.TestCase):
         self.assertEqual(len(items), 0)
 
         config_file = base_dir + '/static/config_valid.yml'
-        # our local dev env
-        if host == 'redis':
-            config_file = base_dir + '/static/config_valid_redis.yml'
+        # Use another server, make sure to have the right configuration file
+        if host != '127.0.0.1':
+            config_file = base_dir + '/static/config_valid_{}.yml'.format(host)
 
         try:
             q = QueueManager(config_file, 'testqueue')

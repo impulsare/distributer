@@ -4,6 +4,5 @@ sphinx_rtd_theme
 nose
 pytest
 pytest-cov
-pytest-env
 pypi-publisher
 twine

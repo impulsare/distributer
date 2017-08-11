@@ -75,4 +75,11 @@ Development & Tests
 
     $ pip install -r requirements.txt
     $ pip install -r requirements-dev.txt
-    $ py.test --cov-report html --cov=impulsare_distributer tests/
+    $ py.test
+
+
+If you run your tests with a different redis server than localhost:
+
+.. code-block:: bash
+
+    $ REDIS=redis py.test

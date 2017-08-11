@@ -48,13 +48,11 @@ class TestQueueListener(unittest.TestCase):
         config_default = self.base_path + '/../impulsare_distributer/static/default.yml'
 
         config_file = self.base_path + '/static/config_valid.yml'
-        if os.environ['REDIS'] == 'redis':
-            config_file = self.base_path + '/static/config_valid_redis.yml'
+        # Use another server, make sure to have the right configuration file
+        if 'REDIS' in os.environ and os.environ['REDIS'] != '127.0.0.1':
+            config_file = self.base_path + '/static/config_valid_{}.yml'.format(os.environ['REDIS'])
 
         config = ConfigReader().parse(config_file, config_specs, config_default)
-
-        if os.environ['REDIS'] is not None:
-            config['distributer']['host'] = os.environ['REDIS']
 
         return config
 
