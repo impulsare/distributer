@@ -38,7 +38,10 @@ class TestQueueManager(unittest.TestCase):
         config_file = base_dir + '/static/config_valid.yml'
         specs_file = base_dir + '/../impulsare_distributer/static/specs.yml'
         config = Reader().parse(config_file, specs_file).get('distributer')
-        con = redis.StrictRedis(host=config['host'])
+        host = config['host']
+        if os.getenv('REDIS') is not None:
+            host = os.getenv('REDIS')
+        con = redis.StrictRedis(host=host)
 
         # Clean
         items = con.keys('rq:*')

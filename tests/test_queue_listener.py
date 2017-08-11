@@ -51,6 +51,9 @@ class TestQueueListener(unittest.TestCase):
 
         config = ConfigReader().parse(self.base_path + '/static/config_valid.yml', config_specs, config_default)
 
+        if os.getenv('REDIS') is not None:
+            config['distributer']['host'] = os.getenv('REDIS')
+
         return config
 
 
