@@ -11,6 +11,7 @@ impulsare/distributer
 Overview
 --------------------------
 A queue manager based on ``rq`` and made for **impulsare**. It helps to :
+
 - add items to a queue
 - listen for a queue via a cli listener
 
