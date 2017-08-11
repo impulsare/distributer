@@ -5,3 +5,4 @@ nose
 pytest
 pytest-cov
 pypi-publisher
+twine

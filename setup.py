@@ -2,9 +2,13 @@ from setuptools import setup, find_packages
 from codecs import open
 from os import path
 
-__version__ = '1.0b1'
+__version__ = '1.0b3'
 
 here = path.abspath(path.dirname(__file__))
+
+# Get the long description from the README file
+with open(path.join(here, 'README.rst'), encoding='utf-8') as f:
+    long_description = f.read()
 
 # get the dependencies and installs
 with open(path.join(here, 'requirements.txt'), encoding='utf-8') as f:
@@ -17,12 +21,7 @@ setup(
     name='impulsare-distributer',
     version=__version__,
     description='A distributer that helps to publish to a queue and process tasks from a queue',
-    long_description="""A queue manager based on ``rq`` and made for **impulsare**. It helps to :
-- Add items to a queue
-- Listen for a queue via a cli listener
-
-See `tests/static/` for examples of configuration.
-""",
+    long_description=long_description,
     url='https://github.com/impulsare/distributer',
     download_url='https://github.com/impulsare/distributer/tarball/' + __version__,
     license='AGPLv3',
