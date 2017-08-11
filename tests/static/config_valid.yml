@@ -2,3 +2,8 @@ distributer:
     host: redis
 testqueue:
     queue: my_test_queue
+logger:
+    directory: /tmp
+    handlers:
+        console: false
+        file: true
