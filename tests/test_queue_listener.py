@@ -18,7 +18,6 @@ class TestQueueListener(unittest.TestCase):
 
 
     def test_bad_host(self):
-        config = self._get_config()
         cmd = self.base_cmd + ['-h', '127.0.0.1', '-p', '80', '-q', 'wrong']
         res = self._exec_cmd(cmd)
         self.assertIs(res['status'], 1, "Can't get status 1, message: {} ('{}')".format(res['stderr'], cmd))
@@ -28,7 +27,6 @@ class TestQueueListener(unittest.TestCase):
 
 
     def test_bad_host_debug(self):
-        config = self._get_config()
         cmd = self.base_cmd + ['--debug', '-h', '127.0.0.1', '-p', '80', '-q', 'wrong']
         res = self._exec_cmd(cmd)
         self.assertIs(res['status'], 1, "Can't get status 1, message: {} ('{}')".format(res['stderr'], cmd))
@@ -49,7 +47,11 @@ class TestQueueListener(unittest.TestCase):
         config_specs = self.base_path + '/../impulsare_distributer/static/specs.yml'
         config_default = self.base_path + '/../impulsare_distributer/static/default.yml'
 
-        config = ConfigReader().parse(self.base_path + '/static/config_valid.yml', config_specs, config_default)
+        config_file = self.base_path + '/static/config_valid.yml'
+        if os.environ['REDIS'] == 'redis':
+            config_file = self.base_path + '/static/config_valid_redis.yml'
+
+        config = ConfigReader().parse(config_file, config_specs, config_default)
 
         if os.environ['REDIS'] is not None:
             config['distributer']['host'] = os.environ['REDIS']
