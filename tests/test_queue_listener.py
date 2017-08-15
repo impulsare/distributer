@@ -19,7 +19,7 @@ class TestQueueListener(unittest.TestCase):
 
 
     def test_bad_host(self):
-        cmd = self.base_cmd + ['-h', '127.0.0.1', '-p', '80', '-q', 'wrong']
+        cmd = ['queue-listener', '-h', '127.0.0.1', '-p', '80', '-q', 'wrong']
         res = self._exec_cmd(cmd)
         self.assertIs(res['status'], 1, "Can't get status 1, message: {} ('{}')".format(res['stderr'], cmd))
         self.assertEqual(res['stdout'], '')
