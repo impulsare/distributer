@@ -7,6 +7,9 @@ impulsare/distributer
 .. image:: https://scrutinizer-ci.com/g/impulsare/distributer/badges/quality-score.png?b=master
     :target: https://scrutinizer-ci.com/g/impulsare/distributer/
 
+.. image:: https://scrutinizer-ci.com/g/impulsare/distributer/badges/coverage.png?b=master
+    :target: https://travis-ci.org/impulsare/distributer
+
 
 Overview
 --------------------------
