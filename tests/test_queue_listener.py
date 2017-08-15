@@ -1,20 +1,21 @@
 import os
-import signal
 import subprocess
 import unittest
+from click.testing import CliRunner
 from impulsare_config import Reader as ConfigReader
+from impulsare_distributer.queue_listener import cli
+base_path = os.path.abspath(os.path.dirname(__file__))
 
 
 # https://docs.python.org/3/library/unittest.html#assert-methods
 class TestQueueListener(unittest.TestCase):
-    base_path = os.path.abspath(os.path.dirname(__file__))
-    base_cmd = ['queue-listener']
+    base_cmd = ['python', base_path + '/../impulsare_distributer/queue_listener.py']
 
     def test_requires_config(self):
-        res = self._exec_cmd(self.base_cmd)
-        self.assertIs(res['status'], 2)
-        self.assertEqual(res['stdout'], '')
-        self.assertRegex(res['stderr'], '.*Missing option "--host"')
+        runner = CliRunner()
+        result = runner.invoke(cli)
+        self.assertIs(result.exit_code, 2)
+        self.assertRegex(result.output, '.*Missing option "--host"')
 
 
     def test_bad_host(self):
@@ -44,13 +45,13 @@ class TestQueueListener(unittest.TestCase):
 
 
     def _get_config(self):
-        config_specs = self.base_path + '/../impulsare_distributer/static/specs.yml'
-        config_default = self.base_path + '/../impulsare_distributer/static/default.yml'
+        config_specs = base_path + '/../impulsare_distributer/static/specs.yml'
+        config_default = base_path + '/../impulsare_distributer/static/default.yml'
 
-        config_file = self.base_path + '/static/config_valid.yml'
+        config_file = base_path + '/static/config_valid.yml'
         # Use another server, make sure to have the right configuration file
         if 'REDIS' in os.environ and os.environ['REDIS'] != '127.0.0.1':
-            config_file = self.base_path + '/static/config_valid_{}.yml'.format(os.environ['REDIS'])
+            config_file = base_path + '/static/config_valid_{}.yml'.format(os.environ['REDIS'])
 
         config = ConfigReader().parse(config_file, config_specs, config_default)
 
